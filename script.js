@@ -42,10 +42,20 @@ document.addEventListener("click", (e) => {
   const parentEl = targetEl.closest(".todo");
 
   if (targetEl.classList.contains("finish-todo")) {
-    parentEl.classList.toggle("done");
+    e.stopPropagation();
+
+    if (targetEl === e.target) {
+      parentEl.classList.toggle("done");
+    }
+  }
+
+  if (parentEl.classList.contains("done")) {
+    const doneBtn = parentEl.querySelector(".finish-todo");
+    doneBtn.setAttribute("disabled", "true");
   }
 
   if (targetEl.classList.contains("remove-todo")) {
+    e.stopPropagation();
     parentEl.remove();
   }
 });
